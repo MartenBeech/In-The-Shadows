@@ -28,6 +28,10 @@ public class Obstacle : MonoBehaviour
         types[pos.x, pos.y] = Type.Player;
     }
 
+    public void CreateEnemy(Vector3Int pos) {
+        types[pos.x, pos.y] = Type.Enemy;
+    }
+
     public void MoveObstacle(Vector3Int from, Vector3Int to) {
         types[to.x, to.y] = types[from.x, from.y];
         types[from.x, from.y] = Type.Null;

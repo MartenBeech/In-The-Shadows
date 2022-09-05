@@ -103,16 +103,22 @@ public class Terrain : MonoBehaviour
         }
     }
 
-    private void CreateStairs(int size, Type[,] types) {
+    public List<Vector3Int> GetAllPathTiles(int size) {
         List<Vector3Int> paths = new List<Vector3Int>();
+        Obstacle obstacle = new Obstacle();
 
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
-                if (types[x, y] == Type.Path) {
+                if (types[x, y] == Type.Path && obstacle.GetObstacle(new Vector3Int(x, y)) == Obstacle.Type.Null) {
                     paths.Add(new Vector3Int(x, y));
                 }
             }
         }
+        return paths;
+    }
+
+    private void CreateStairs(int size, Type[,] types) {
+        List<Vector3Int> paths = GetAllPathTiles(size);
 
         Rng rng = new Rng();
         int rndPath = rng.Range(0, paths.Count);
