@@ -6,14 +6,15 @@ using UnityEngine.UI;
 
 public class Terrain : MonoBehaviour
 {
-    enum Type
+    public enum Type
     {
         Wall, Path, Start, End
     };
+    static Type[,] types;
 
     public void CreateTerrain(int size)
     {
-        Type[,] types = new Type[size, size];
+        types = new Type[size, size];
         CreateWalls(size, types);
         Vector3Int[] centerPoints = CreateRooms(size, types);
         CreateRoomPaths(size, types, centerPoints);
@@ -122,17 +123,22 @@ public class Terrain : MonoBehaviour
 
         types[startPos.x, startPos.y] = Type.Start;
         types[endPos.x, endPos.y] = Type.End;
+
+        Player player = new Player();
+        player.CreatePlayer(startPos);
     }
 
     private void PlaceTerrain(int size, Type[,] types)
     {
         Tile tile = new Tile();
-        for (int x = 0; x < size; x++)
-        {
-            for (int y = 0; y < size; y++)
-            {
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
                 GameObject.Find(tile.GetName(x, y)).GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{types[x, y]}");
             }
         }
+    }
+
+    public Type GetTerrain(Vector3Int pos) {
+        return types[pos.x, pos.y];
     }
 }

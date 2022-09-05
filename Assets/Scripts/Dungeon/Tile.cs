@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    public const int TILE_SIZE = 100;
     public void CreateTiles(int size)
     {
         GameObject prefab = Resources.Load<GameObject>("Assets/Tile");
@@ -12,8 +13,8 @@ public class Tile : MonoBehaviour
         {
             for (int y = 0; y < size; y++)
             {
-                GameObject colorButton = Instantiate(prefab, new Vector3(x * 100, y * 100), parent.transform.rotation, parent.transform);
-                colorButton.name = GetName(x, y);
+                GameObject tile = Instantiate(prefab, new Vector3(x * TILE_SIZE, y * TILE_SIZE), parent.transform.rotation, parent.transform);
+                tile.name = GetName(x, y);
             }
         }
     }
