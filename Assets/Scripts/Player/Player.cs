@@ -15,13 +15,13 @@ public class Player : MonoBehaviour
         player.name = "Player";
         pos = _pos;
 
-        Obstacle obstacle = new Obstacle();
+        Obstacle obstacle = new();
         obstacle.CreatePlayer(pos);
 
-        Scout scout = new Scout();
+        Scout scout = new();
         scout.CreateLightAroundPos(pos);
 
-        Cam cam = new Cam();
+        Cam cam = new();
         cam.SetPosition(new Vector3(_pos.x * Tile.TILE_SIZE, _pos.y * Tile.TILE_SIZE));
     }
 }

@@ -10,9 +10,9 @@ public class Enemy : MonoBehaviour
         Normal, Elite, Boss
     }
     public void CreateEnemies(int size) {
-        Terrain terrain = new Terrain();
+        Terrain terrain = new();
         List<Vector3Int> paths = terrain.GetAllPathTiles(size);
-        Rng rng = new Rng();
+        Rng rng = new();
         for (int i = 0; i < size / 2; i++) {
             int rnd = rng.Range(0, paths.Count);
             CreateEnemy(Type.Normal, paths[rnd]);
@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
         GameObject player = Instantiate(prefab, new Vector3(pos.x * Tile.TILE_SIZE, pos.y * Tile.TILE_SIZE, -1), parent.transform.rotation, parent.transform);
         player.name = GetName(pos.x, pos.y);
 
-        Obstacle obstacle = new Obstacle();
+        Obstacle obstacle = new();
         obstacle.CreateEnemy(pos);
     }
 

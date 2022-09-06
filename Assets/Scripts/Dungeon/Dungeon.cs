@@ -10,17 +10,17 @@ public class Dungeon : MonoBehaviour
     public void CreateDungeon(int _size)
     {
         size = _size;
-        Tile tile = new Tile();
+        Tile tile = new();
         tile.CreateTiles(size);
-        Map map = new Map();
+        Map map = new();
         map.CreateMapTiles(size);
-        Scout scout = new Scout();
+        Scout scout = new();
         scout.CreateScouting(size);
-        Obstacle obstacle = new Obstacle();
+        Obstacle obstacle = new();
         obstacle.CreateObstacles(size);
-        Terrain terrain = new Terrain();
+        Terrain terrain = new();
         terrain.CreateTerrain(size);
-        Enemy enemy = new Enemy();
+        Enemy enemy = new();
         enemy.CreateEnemies(size);
         scout.CreateShadows(size);
     }

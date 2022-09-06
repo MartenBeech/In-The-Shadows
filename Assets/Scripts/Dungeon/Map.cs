@@ -32,8 +32,8 @@ public class Map : MonoBehaviour
     }
 
     public void PlaceMapTile(Vector3Int pos) {
-        Terrain terrain = new Terrain();
-        Obstacle obstacle = new Obstacle();
+        Terrain terrain = new();
+        Obstacle obstacle = new();
 
         Terrain.Type terrainType = terrain.GetTerrain(pos);
         Obstacle.Type obstacleType = obstacle.GetObstacle(pos);
@@ -42,7 +42,7 @@ public class Map : MonoBehaviour
     }
 
     private Color GetMapColor(Vector3Int pos, Terrain.Type terrainType, Obstacle.Type obstacleType) {
-        Scout scout = new Scout();
+        Scout scout = new();
         if (scout.GetRevealed(pos)) {
             if (scout.GetVision(pos)) { 
                 if (obstacleType == Obstacle.Type.Player) {

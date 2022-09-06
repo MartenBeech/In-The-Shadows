@@ -23,21 +23,21 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void MovePlayer(Vector3Int from, Vector3Int to) {
-        Obstacle obstacle = new Obstacle();
+        Obstacle obstacle = new();
         if (obstacle.GetObstacle(to) == Obstacle.Type.Enemy) {
             return;
         }
-        Terrain terrain = new Terrain();
+        Terrain terrain = new();
         if (terrain.GetTerrain(to) == Terrain.Type.Wall) {
             return;
         }
 
-        Scout scout = new Scout();
+        Scout scout = new();
         scout.CreateShadowsAroundPos(from);
         scout.CreateLightAroundPos(to);
 
         obstacle.MoveObstacle(from, to);
-        AnimaPlayer animaPlayer = new AnimaPlayer();
+        AnimaPlayer animaPlayer = new();
         animaPlayer.MovePlayer(player, from, to);
         Player.pos = to;
     }

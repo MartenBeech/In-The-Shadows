@@ -35,7 +35,7 @@ public class Terrain : MonoBehaviour
 
     private Vector3Int[] CreateRooms(int size, Type[,] types)
     {
-        Rng rng = new Rng();
+        Rng rng = new();
         int nRooms = size / 2;
 
         Vector3Int[] centerPoints = new Vector3Int[nRooms];
@@ -81,7 +81,7 @@ public class Terrain : MonoBehaviour
             directions.Add('S');
         }
 
-        Rng rng = new Rng();
+        Rng rng = new();
         while (directions.Count > 0) {
             int rnd = rng.Range(0, directions.Count);
             if (directions[rnd] == 'E') {
@@ -105,7 +105,7 @@ public class Terrain : MonoBehaviour
 
     public List<Vector3Int> GetAllPathTiles(int size) {
         List<Vector3Int> paths = new List<Vector3Int>();
-        Obstacle obstacle = new Obstacle();
+        Obstacle obstacle = new();
 
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
@@ -120,7 +120,7 @@ public class Terrain : MonoBehaviour
     private void CreateStairs(int size, Type[,] types) {
         List<Vector3Int> paths = GetAllPathTiles(size);
 
-        Rng rng = new Rng();
+        Rng rng = new();
         int rndPath = rng.Range(0, paths.Count);
         Vector3Int startPos = paths[rndPath];
         paths.RemoveAt(rndPath);
@@ -130,13 +130,13 @@ public class Terrain : MonoBehaviour
         types[startPos.x, startPos.y] = Type.Start;
         types[endPos.x, endPos.y] = Type.End;
 
-        Player player = new Player();
+        Player player = new();
         player.CreatePlayer(startPos);
     }
 
     private void PlaceTerrain(int size, Type[,] types)
     {
-        Tile tile = new Tile();
+        Tile tile = new();
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
                 GameObject.Find(tile.GetName(x, y)).GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{types[x, y]}");

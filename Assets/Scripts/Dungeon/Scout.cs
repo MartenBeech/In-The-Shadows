@@ -33,7 +33,7 @@ public class Scout : MonoBehaviour
 
     public void CreateShadow(Vector3Int pos) {
         vision[pos.x, pos.y] = false;
-        Map map = new Map();
+        Map map = new();
         map.PlaceMapTile(pos);
     }
 
@@ -46,11 +46,11 @@ public class Scout : MonoBehaviour
     }
 
     public void CreateLight(Vector3Int pos) {
-        Dungeon dungeon = new Dungeon();
+        Dungeon dungeon = new();
         if (dungeon.GetInsideDungeon(pos)) {
             revealed[pos.x, pos.y] = true;
             vision[pos.x, pos.y] = true;
-            Map map = new Map();
+            Map map = new();
             map.PlaceMapTile(pos);
         }
     }

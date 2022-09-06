@@ -35,7 +35,7 @@ public class Obstacle : MonoBehaviour
     public void MoveObstacle(Vector3Int from, Vector3Int to) {
         types[to.x, to.y] = types[from.x, from.y];
         types[from.x, from.y] = Type.Null;
-        Map map = new Map();
+        Map map = new();
         map.PlaceMapTile(from);
         map.PlaceMapTile(to);
     }

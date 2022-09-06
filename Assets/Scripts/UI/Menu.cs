@@ -9,7 +9,7 @@ public class Menu : MonoBehaviour
     public void StartGameClicked()
     {
         Destroy(GameObject.Find("Menu"));
-        Dungeon dungeon = new Dungeon();
+        Dungeon dungeon = new();
         dungeon.CreateDungeon(50);
     }
 }
