@@ -36,8 +36,8 @@ public class Obstacle : MonoBehaviour
         types[to.x, to.y] = types[from.x, from.y];
         types[from.x, from.y] = Type.Null;
         Map map = new();
-        map.PlaceMapTile(from);
-        map.PlaceMapTile(to);
+        map.PlaceMapTilesAroundPos(from, 0);
+        map.PlaceMapTilesAroundPos(to, 0);
     }
 
     public Type GetObstacle(Vector3Int pos) {

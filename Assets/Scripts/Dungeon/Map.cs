@@ -23,22 +23,25 @@ public class Map : MonoBehaviour
         return $"MapTile{x}-{y}";
     }
 
-    public void PlaceMapTiles(int size) {
-        for (int x = 0; x < size; x++) {
-            for (int y = 0; y < size; y++) {
-                PlaceMapTile(new Vector3Int(x, y));
+    public void PlaceMapTilesAroundPos(Vector3Int pos, int range) {
+        Terrain terrain = new();
+        Obstacle obstacle = new();
+        Dungeon dungeon = new();
+
+        for (int x = pos.x - range; x <= pos.x + range; x++) {
+            for (int y = pos.y - range; y <= pos.y + range; y++) {
+                PlaceMapTile(new Vector3Int(x, y), terrain, obstacle, dungeon);
             }
         }
     }
 
-    public void PlaceMapTile(Vector3Int pos) {
-        Terrain terrain = new();
-        Obstacle obstacle = new();
+    public void PlaceMapTile(Vector3Int pos, Terrain terrain, Obstacle obstacle, Dungeon dungeon) {
+        if (dungeon.GetInsideDungeon(pos)) { 
+            Terrain.Type terrainType = terrain.GetTerrain(pos);
+            Obstacle.Type obstacleType = obstacle.GetObstacle(pos);
 
-        Terrain.Type terrainType = terrain.GetTerrain(pos);
-        Obstacle.Type obstacleType = obstacle.GetObstacle(pos);
-
-        GameObject.Find(GetName(pos.x, pos.y)).GetComponent<Image>().color = GetMapColor(pos, terrainType, obstacleType);
+            GameObject.Find(GetName(pos.x, pos.y)).GetComponent<Image>().color = GetMapColor(pos, terrainType, obstacleType);
+        }
     }
 
     private Color GetMapColor(Vector3Int pos, Terrain.Type terrainType, Obstacle.Type obstacleType) {
