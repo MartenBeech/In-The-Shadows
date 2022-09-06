@@ -10,13 +10,13 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         if (!movementInAction) {
-            if (Input.GetKey("w")) {
+            if (Input.GetKey(KeyCode.W)) {
                 MovePlayer(Player.pos, new Vector3Int(Player.pos.x, Player.pos.y + 1));
-            } else if (Input.GetKey("s")) {
+            } else if (Input.GetKey(KeyCode.S)) {
                 MovePlayer(Player.pos, new Vector3Int(Player.pos.x, Player.pos.y - 1));
-            } else if (Input.GetKey("d")) {
+            } else if (Input.GetKey(KeyCode.D)) {
                 MovePlayer(Player.pos, new Vector3Int(Player.pos.x + 1, Player.pos.y));
-            } else if (Input.GetKey("a")) {
+            } else if (Input.GetKey(KeyCode.A)) {
                 MovePlayer(Player.pos, new Vector3Int(Player.pos.x - 1, Player.pos.y));
             }
         }
@@ -31,6 +31,10 @@ public class PlayerMovement : MonoBehaviour
         if (terrain.GetTerrain(to) == Terrain.Type.Wall) {
             return;
         }
+
+        Scout scout = new Scout();
+        scout.CreateShadowsAroundPos(from);
+        scout.CreateLightAroundPos(to);
 
         obstacle.MoveObstacle(from, to);
         AnimaPlayer animaPlayer = new AnimaPlayer();

@@ -18,6 +18,9 @@ public class Player : MonoBehaviour
         Obstacle obstacle = new Obstacle();
         obstacle.CreatePlayer(pos);
 
+        Scout scout = new Scout();
+        scout.CreateLightAroundPos(pos);
+
         Cam cam = new Cam();
         cam.SetPosition(new Vector3(_pos.x * Tile.TILE_SIZE, _pos.y * Tile.TILE_SIZE));
     }

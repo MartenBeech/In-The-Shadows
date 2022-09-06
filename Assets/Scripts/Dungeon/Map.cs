@@ -35,31 +35,35 @@ public class Map : MonoBehaviour
         Terrain terrain = new Terrain();
         Obstacle obstacle = new Obstacle();
 
-        Terrain.Type terrainType = terrain.GetTerrain(new Vector3Int(pos.x, pos.y));
-        Obstacle.Type obstacleType = obstacle.GetObstacle(new Vector3Int(pos.x, pos.y));
+        Terrain.Type terrainType = terrain.GetTerrain(pos);
+        Obstacle.Type obstacleType = obstacle.GetObstacle(pos);
 
-        GameObject.Find(GetName(pos.x, pos.y)).GetComponent<Image>().color = GetMapColor(terrainType, obstacleType);
+        GameObject.Find(GetName(pos.x, pos.y)).GetComponent<Image>().color = GetMapColor(pos, terrainType, obstacleType);
     }
 
-    private Color GetMapColor(Terrain.Type terrainType, Obstacle.Type obstacleType) {
-        if (obstacleType == Obstacle.Type.Player) {
-            return Color.HSVToRGB(120 / 360f, 1, 1); //Green
-        }
-        if (obstacleType == Obstacle.Type.Enemy) {
-            return Color.HSVToRGB(0 / 360f, 1, 1); //Red
-        }
-
-        if (terrainType == Terrain.Type.Start) {
-            return Color.HSVToRGB(210 / 360f, 0.5f, 1); //Light cyan
-        }
-        if (terrainType == Terrain.Type.End) {
-            return Color.HSVToRGB(210 / 360f, 1, 1); //Cyan
-        }
-        if (terrainType == Terrain.Type.Wall) {
-            return Color.HSVToRGB(0 / 360f, 1, 0); //Black
-        }
-        if (terrainType == Terrain.Type.Path) {
-            return Color.HSVToRGB(0 / 360f, 0, 1); //White
+    private Color GetMapColor(Vector3Int pos, Terrain.Type terrainType, Obstacle.Type obstacleType) {
+        Scout scout = new Scout();
+        if (scout.GetRevealed(pos)) {
+            if (scout.GetVision(pos)) { 
+                if (obstacleType == Obstacle.Type.Player) {
+                    return Color.HSVToRGB(120 / 360f, 1, 1); //Green
+                }
+                if (obstacleType == Obstacle.Type.Enemy) {
+                    return Color.HSVToRGB(0 / 360f, 1, 1); //Red
+                }
+            }
+            if (terrainType == Terrain.Type.Start) {
+                return Color.HSVToRGB(210 / 360f, 0.5f, 1); //Light cyan
+            }
+            if (terrainType == Terrain.Type.End) {
+                return Color.HSVToRGB(210 / 360f, 1, 1); //Cyan
+            }
+            if (terrainType == Terrain.Type.Wall) {
+                return Color.HSVToRGB(0 / 360f, 1, 0); //Black
+            }
+            if (terrainType == Terrain.Type.Path) {
+                return Color.HSVToRGB(0 / 360f, 0, 1); //White
+            }
         }
         return Color.HSVToRGB(0 / 360f, 0, 0.5f); //Gray
     }
