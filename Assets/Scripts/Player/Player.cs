@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     static GameObject player;
-    public static Vector3Int pos;
+    static Vector3Int pos;
     public void CreatePlayer(Vector3Int _pos) {
         GameObject prefab = Resources.Load<GameObject>("Assets/Player");
         GameObject parent = GameObject.Find("Players");
@@ -23,5 +23,10 @@ public class Player : MonoBehaviour
 
         Cam cam = new();
         cam.SetPosition(new Vector3(_pos.x * Tile.TILE_SIZE, _pos.y * Tile.TILE_SIZE));
+    }
+
+    public Vector3Int Pos {
+        get { return pos; }
+        set { pos = value; }
     }
 }

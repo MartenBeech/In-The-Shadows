@@ -27,25 +27,25 @@ public class Map : MonoBehaviour
         Terrain terrain = new();
         Obstacle obstacle = new();
         Dungeon dungeon = new();
+        Scout scout = new();
 
         for (int x = pos.x - range; x <= pos.x + range; x++) {
             for (int y = pos.y - range; y <= pos.y + range; y++) {
-                PlaceMapTile(new Vector3Int(x, y), terrain, obstacle, dungeon);
+                PlaceMapTile(new Vector3Int(x, y), terrain, obstacle, dungeon, scout);
             }
         }
     }
 
-    public void PlaceMapTile(Vector3Int pos, Terrain terrain, Obstacle obstacle, Dungeon dungeon) {
+    public void PlaceMapTile(Vector3Int pos, Terrain terrain, Obstacle obstacle, Dungeon dungeon, Scout scout) {
         if (dungeon.GetInsideDungeon(pos)) { 
             Terrain.Type terrainType = terrain.GetTerrain(pos);
             Obstacle.Type obstacleType = obstacle.GetObstacle(pos);
 
-            GameObject.Find(GetName(pos.x, pos.y)).GetComponent<Image>().color = GetMapColor(pos, terrainType, obstacleType);
+            GameObject.Find(GetName(pos.x, pos.y)).GetComponent<Image>().color = GetMapColor(pos, terrainType, obstacleType, scout);
         }
     }
 
-    private Color GetMapColor(Vector3Int pos, Terrain.Type terrainType, Obstacle.Type obstacleType) {
-        Scout scout = new();
+    private Color GetMapColor(Vector3Int pos, Terrain.Type terrainType, Obstacle.Type obstacleType, Scout scout) {
         if (scout.GetRevealed(pos)) {
             if (scout.GetVision(pos)) { 
                 if (obstacleType == Obstacle.Type.Player) {
@@ -53,6 +53,9 @@ public class Map : MonoBehaviour
                 }
                 if (obstacleType == Obstacle.Type.Enemy) {
                     return Color.HSVToRGB(0 / 360f, 1, 1); //Red
+                }
+                if (terrainType == Terrain.Type.Path) {
+                    return Color.HSVToRGB(0 / 360f, 0, 1); //White
                 }
             }
             if (terrainType == Terrain.Type.Start) {
@@ -65,7 +68,7 @@ public class Map : MonoBehaviour
                 return Color.HSVToRGB(0 / 360f, 1, 0); //Black
             }
             if (terrainType == Terrain.Type.Path) {
-                return Color.HSVToRGB(0 / 360f, 0, 1); //White
+                return Color.HSVToRGB(0 / 360f, 0, 0.75f); //Light gray
             }
         }
         return Color.HSVToRGB(0 / 360f, 0, 0.5f); //Gray

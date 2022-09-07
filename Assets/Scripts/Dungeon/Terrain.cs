@@ -15,14 +15,13 @@ public class Terrain : MonoBehaviour
     public void CreateTerrain(int size)
     {
         types = new Type[size, size];
-        CreateWalls(size, types);
-        Vector3Int[] centerPoints = CreateRooms(size, types);
-        CreateRoomPaths(size, types, centerPoints);
-        CreateStairs(size, types);
-        PlaceTerrain(size, types);
+        CreateWalls(size);
+        Vector3Int[] centerPoints = CreateRooms(size);
+        CreateRoomPaths(size, centerPoints);
+        CreateStairs(size);
     }
 
-    private void CreateWalls(int size, Type[,] types)
+    private void CreateWalls(int size)
     {
         for (int x = 0; x < size; x++)
         {
@@ -33,7 +32,7 @@ public class Terrain : MonoBehaviour
         }
     }
 
-    private Vector3Int[] CreateRooms(int size, Type[,] types)
+    private Vector3Int[] CreateRooms(int size)
     {
         Rng rng = new();
         int nRooms = size / 2;
@@ -58,14 +57,14 @@ public class Terrain : MonoBehaviour
         return centerPoints;
     }
 
-    private void CreateRoomPaths(int size, Type[,] types, Vector3Int[] centerPoints) 
+    private void CreateRoomPaths(int size, Vector3Int[] centerPoints) 
     {
         for (int i = 0; i < centerPoints.Length - 1; i++) {
-            CreateRoomPath(size, types, centerPoints[i], centerPoints[i + 1]);
+            CreateRoomPath(size, centerPoints[i], centerPoints[i + 1]);
         }
     }
 
-    private void CreateRoomPath(int size, Type[,] types, Vector3Int from, Vector3Int to) 
+    private void CreateRoomPath(int size, Vector3Int from, Vector3Int to) 
     {
         List<char> directions = new List<char>();
         for (int x = from.x; x < to.x; x++) {
@@ -117,7 +116,7 @@ public class Terrain : MonoBehaviour
         return paths;
     }
 
-    private void CreateStairs(int size, Type[,] types) {
+    private void CreateStairs(int size) {
         List<Vector3Int> paths = GetAllPathTiles(size);
 
         Rng rng = new();
@@ -134,17 +133,31 @@ public class Terrain : MonoBehaviour
         player.CreatePlayer(startPos);
     }
 
-    private void PlaceTerrain(int size, Type[,] types)
-    {
+    public Type GetTerrain(Vector3Int pos) {
+        return types[pos.x, pos.y];
+    }
+    
+    public void PlaceTerrainAroundPos(Vector3Int pos, int range) {
+        Dungeon dungeon = new();
         Tile tile = new();
-        for (int x = 0; x < size; x++) {
-            for (int y = 0; y < size; y++) {
-                GameObject.Find(tile.GetName(x, y)).GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{types[x, y]}");
+        Scout scout = new();
+
+        for (int x = pos.x - range; x <= pos.x + range; x++) {
+            for (int y = pos.y - range; y <= pos.y + range; y++) {
+                PlaceTerrain(new Vector3Int(x, y), dungeon, tile, scout);
             }
         }
     }
 
-    public Type GetTerrain(Vector3Int pos) {
-        return types[pos.x, pos.y];
+    public void PlaceTerrain(Vector3Int pos, Dungeon dungeon, Tile tile, Scout scout) {
+        if (dungeon.GetInsideDungeon(pos)) {
+            GameObject gameObject = GameObject.Find(tile.GetName(pos.x, pos.y));
+            gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{types[pos.x, pos.y]}");
+            if (scout.GetVision(pos)) {
+                gameObject.GetComponent<Image>().color = Color.HSVToRGB(0 / 360f, 0, 1f); //White
+            } else {
+                gameObject.GetComponent<Image>().color = Color.HSVToRGB(0 / 360f, 0, 0.75f); //Light gray
+            }
+        }
     }
 }

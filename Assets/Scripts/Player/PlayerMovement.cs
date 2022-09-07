@@ -4,20 +4,24 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public GameObject player;
-    public static bool movementInAction = false;
+    public GameObject playerGameObject;
+    static bool movementInAction = false;
 
     void Update()
     {
         if (!movementInAction) {
             if (Input.GetKey(KeyCode.W)) {
-                MovePlayer(Player.pos, new Vector3Int(Player.pos.x, Player.pos.y + 1));
+                Player player = new();
+                MovePlayer(player.Pos, new Vector3Int(player.Pos.x, player.Pos.y + 1));
             } else if (Input.GetKey(KeyCode.S)) {
-                MovePlayer(Player.pos, new Vector3Int(Player.pos.x, Player.pos.y - 1));
+                Player player = new();
+                MovePlayer(player.Pos, new Vector3Int(player.Pos.x, player.Pos.y - 1));
             } else if (Input.GetKey(KeyCode.D)) {
-                MovePlayer(Player.pos, new Vector3Int(Player.pos.x + 1, Player.pos.y));
+                Player player = new();
+                MovePlayer(player.Pos, new Vector3Int(player.Pos.x + 1, player.Pos.y));
             } else if (Input.GetKey(KeyCode.A)) {
-                MovePlayer(Player.pos, new Vector3Int(Player.pos.x - 1, Player.pos.y));
+                Player player = new();
+                MovePlayer(player.Pos, new Vector3Int(player.Pos.x - 1, player.Pos.y));
             }
         }
     }
@@ -38,7 +42,13 @@ public class PlayerMovement : MonoBehaviour
 
         obstacle.MoveObstacle(from, to);
         AnimaPlayer animaPlayer = new();
-        animaPlayer.MovePlayer(player, from, to);
-        Player.pos = to;
+        animaPlayer.MovePlayer(playerGameObject, from, to);
+        Player player = new();
+        player.Pos = to;
+    }
+
+    public bool MovementInAction {
+        get { return movementInAction; }
+        set { movementInAction = value; }
     }
 }

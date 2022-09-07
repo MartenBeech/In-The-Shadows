@@ -8,7 +8,7 @@ public class Scout : MonoBehaviour
 {
     static bool[,] revealed;
     static bool[,] vision;
-    static int range = 5;
+    static int range = 3;
 
     public void CreateScouting(int size) {
         revealed = new bool[size, size];
@@ -34,6 +34,8 @@ public class Scout : MonoBehaviour
         }
         Map map = new();
         map.PlaceMapTilesAroundPos(pos, range);
+        Terrain terrain = new();
+        terrain.PlaceTerrainAroundPos(pos, range);
     }
 
     public void CreateShadow(Vector3Int pos) {
@@ -51,6 +53,8 @@ public class Scout : MonoBehaviour
         }
         Map map = new();
         map.PlaceMapTilesAroundPos(pos, range);
+        Terrain terrain = new();
+        terrain.PlaceTerrainAroundPos(pos, range);
     }
 
     public void CreateLight(Vector3Int pos) {
