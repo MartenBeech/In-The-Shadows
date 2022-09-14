@@ -24,13 +24,13 @@ public class Enemy : MonoBehaviour
         GameObject prefab = Resources.Load<GameObject>("Assets/Enemy");
         GameObject parent = GameObject.Find("Enemies");
         GameObject player = Instantiate(prefab, new Vector3(pos.x * Tile.TILE_SIZE, pos.y * Tile.TILE_SIZE, -1), parent.transform.rotation, parent.transform);
-        player.name = GetName(pos.x, pos.y);
+        player.name = GetName(pos);
 
         Obstacle obstacle = new();
         obstacle.CreateEnemy(pos);
     }
 
-    public string GetName(int x, int y) {
-        return $"Enemy{x}-{y}";
+    public string GetName(Vector3Int pos) {
+        return $"Enemy{pos.x}-{pos.y}";
     }
 }

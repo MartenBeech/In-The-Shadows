@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AnimaPlayer : MonoBehaviour
+public class AnimaEnemy : MonoBehaviour
 {
     Game game = new();
     public Vector3Int fromPoint;
@@ -22,18 +22,18 @@ public class AnimaPlayer : MonoBehaviour
 
             if (counter < 0) {
                 transform.position = new Vector3(toPoint.x, toPoint.y, -1);
-                PlayerMovement playerMovement = new();
-                playerMovement.MovementInAction = false;
-                game.NewTurnEnemy();
+                EnemyMovement enemyMovement = new();
+                enemyMovement.EnemiesMoving--;
+                if (enemyMovement.EnemiesMoving == 0) {
+                    game.NewTurnPlayer();
+                }
             }
         }
     }
 
-    public void MovePlayer(GameObject gameObject, Vector3Int from, Vector3Int to) {
+    public void MoveEnemy(GameObject gameObject, Vector3Int from, Vector3Int to) {
         gameObject.GetComponentInChildren<AnimaPlayer>().fromPoint = new Vector3Int(from.x * Tile.TILE_SIZE, from.y * Tile.TILE_SIZE);
         gameObject.GetComponentInChildren<AnimaPlayer>().toPoint = new Vector3Int(to.x * Tile.TILE_SIZE, to.y * Tile.TILE_SIZE);
         gameObject.GetComponentInChildren<AnimaPlayer>().counter = 1;
-        PlayerMovement playerMovement = new();
-        playerMovement.MovementInAction = true;
     }
 }

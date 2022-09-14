@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    Game game = new();
     public GameObject playerGameObject;
     static bool movementInAction = false;
+    public bool MovementInAction {
+        get { return movementInAction; }
+        set { movementInAction = value; }
+    }
 
     void Update()
     {
-        if (!movementInAction) {
+        if (!movementInAction && game.Turn == Game.Alignment.Player) {
             if (Input.GetKey(KeyCode.W)) {
                 Player player = new();
                 MovePlayer(player.Pos, new Vector3Int(player.Pos.x, player.Pos.y + 1));
@@ -47,8 +52,5 @@ public class PlayerMovement : MonoBehaviour
         player.Pos = to;
     }
 
-    public bool MovementInAction {
-        get { return movementInAction; }
-        set { movementInAction = value; }
-    }
+    
 }

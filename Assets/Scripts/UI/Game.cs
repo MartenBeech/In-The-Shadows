@@ -11,17 +11,24 @@ public class Game : MonoBehaviour
     }
 
     static int speed = 4;
-    static Alignment turn;
-
     public int Speed {
         get { return speed; }
         set { speed = value; }
     }
 
-    
-
+    static Alignment turn;
     public Alignment Turn {
         get { return turn; }
         set { turn = value; }
+    }
+
+    public void NewTurnPlayer() {
+        turn = Alignment.Player;
+    }
+
+    public void NewTurnEnemy() {
+        turn = Alignment.Enemy;
+        EnemyMovement enemyMovement = new();
+        enemyMovement.MoveEnemies();
     }
 }
