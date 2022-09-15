@@ -25,7 +25,7 @@ public class Dungeon : MonoBehaviour
         scout.CreateShadows(size);
     }
 
-    public bool GetInsideDungeon(Vector3Int pos) {
+    public bool IsInsideDungeon(Vector3Int pos) {
         if (pos.x < 0) {
             return false;
         }

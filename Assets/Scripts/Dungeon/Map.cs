@@ -37,7 +37,7 @@ public class Map : MonoBehaviour
     }
 
     public void PlaceMapTile(Vector3Int pos, Terrain terrain, Obstacle obstacle, Dungeon dungeon, Scout scout) {
-        if (dungeon.GetInsideDungeon(pos)) { 
+        if (dungeon.IsInsideDungeon(pos)) { 
             Terrain.Type terrainType = terrain.GetTerrain(pos);
             Obstacle.Type obstacleType = obstacle.GetObstacle(pos);
 

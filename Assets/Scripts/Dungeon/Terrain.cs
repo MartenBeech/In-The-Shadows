@@ -136,7 +136,15 @@ public class Terrain : MonoBehaviour
     public Type GetTerrain(Vector3Int pos) {
         return types[pos.x, pos.y];
     }
-    
+
+    public bool GetPassable(Vector3Int pos) {
+        Type type = types[pos.x, pos.y];
+        if (type == Type.Wall) {
+            return false;
+        }
+        return true;
+    }
+
     public void PlaceTerrainAroundPos(Vector3Int pos, int range) {
         Dungeon dungeon = new();
         Tile tile = new();
@@ -150,7 +158,7 @@ public class Terrain : MonoBehaviour
     }
 
     public void PlaceTerrain(Vector3Int pos, Dungeon dungeon, Tile tile, Scout scout) {
-        if (dungeon.GetInsideDungeon(pos)) {
+        if (dungeon.IsInsideDungeon(pos)) {
             GameObject gameObject = GameObject.Find(tile.GetName(pos.x, pos.y));
             gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{types[pos.x, pos.y]}");
             if (scout.GetVision(pos)) {

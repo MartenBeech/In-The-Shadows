@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
         Terrain terrain = new();
         List<Vector3Int> paths = terrain.GetAllPathTiles(size);
         Rng rng = new();
-        for (int i = 0; i < size / 2; i++) {
+        for (int i = 0; i < size / 5; i++) {
             int rnd = rng.Range(0, paths.Count);
             CreateEnemy(Type.Normal, paths[rnd]);
             paths.RemoveAt(rnd);

@@ -8,7 +8,7 @@ public class Scout : MonoBehaviour
 {
     static bool[,] revealed;
     static bool[,] vision;
-    static int range = 3;
+    static int range = 5;
 
     public void CreateScouting(int size) {
         revealed = new bool[size, size];
@@ -27,7 +27,7 @@ public class Scout : MonoBehaviour
         Dungeon dungeon = new();
         for (int x = pos.x - range; x <= pos.x + range; x++) {
             for (int y = pos.y - range; y <= pos.y + range; y++) {
-                if (dungeon.GetInsideDungeon(new Vector3Int(x, y))) {
+                if (dungeon.IsInsideDungeon(new Vector3Int(x, y))) {
                     CreateShadow(new Vector3Int(x, y));
                 }
             }
@@ -46,7 +46,7 @@ public class Scout : MonoBehaviour
         Dungeon dungeon = new();
         for (int x = pos.x - range; x <= pos.x + range; x++) {
             for (int y = pos.y - range; y <= pos.y + range; y++) {
-                if (dungeon.GetInsideDungeon(new Vector3Int(x, y))) {
+                if (dungeon.IsInsideDungeon(new Vector3Int(x, y))) {
                     CreateLight(new Vector3Int(x, y));
                 }
             }

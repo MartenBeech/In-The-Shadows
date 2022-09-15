@@ -32,8 +32,8 @@ public class AnimaEnemy : MonoBehaviour
     }
 
     public void MoveEnemy(GameObject gameObject, Vector3Int from, Vector3Int to) {
-        gameObject.GetComponentInChildren<AnimaPlayer>().fromPoint = new Vector3Int(from.x * Tile.TILE_SIZE, from.y * Tile.TILE_SIZE);
-        gameObject.GetComponentInChildren<AnimaPlayer>().toPoint = new Vector3Int(to.x * Tile.TILE_SIZE, to.y * Tile.TILE_SIZE);
-        gameObject.GetComponentInChildren<AnimaPlayer>().counter = 1;
+        gameObject.GetComponentInChildren<AnimaEnemy>().fromPoint = new Vector3Int(from.x * Tile.TILE_SIZE, from.y * Tile.TILE_SIZE);
+        gameObject.GetComponentInChildren<AnimaEnemy>().toPoint = new Vector3Int(to.x * Tile.TILE_SIZE, to.y * Tile.TILE_SIZE);
+        gameObject.GetComponentInChildren<AnimaEnemy>().counter = 1;
     }
 }

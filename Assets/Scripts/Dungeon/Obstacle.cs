@@ -43,4 +43,15 @@ public class Obstacle : MonoBehaviour
     public Type GetObstacle(Vector3Int pos) {
         return types[pos.x, pos.y];
     }
+
+    public bool GetPassable(Vector3Int pos) {
+        Type type = types[pos.x, pos.y];
+        if (type == Type.Enemy) {
+            return false;
+        }
+        if (type == Type.Player) {
+            return false;
+        }
+        return true;
+    }
 }
