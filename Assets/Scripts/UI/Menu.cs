@@ -10,6 +10,6 @@ public class Menu : MonoBehaviour
     {
         Destroy(GameObject.Find("Menu"));
         Dungeon dungeon = new();
-        dungeon.CreateDungeon(30);
+        dungeon.CreateDungeon(50);
     }
 }

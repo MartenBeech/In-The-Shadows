@@ -8,7 +8,7 @@ public class Scout : MonoBehaviour
 {
     static bool[,] revealed;
     static bool[,] vision;
-    static int range = 5;
+    static int range = 3;
 
     public void CreateScouting(int size) {
         revealed = new bool[size, size];

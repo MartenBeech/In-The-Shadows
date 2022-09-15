@@ -14,10 +14,6 @@ public class EnemyMovement : MonoBehaviour
 
     public void MoveEnemies() {
         Obstacle obstacle = new();
-        Terrain terrain = new();
-        EnemyMovement enemyMovement = new();
-        AnimaEnemy animaEnemy = new();
-        Enemy enemy = new();
         Dungeon dungeon = new();
         Player player = new();
         List<Vector3Int> enemiesToMove = new();
@@ -36,6 +32,11 @@ public class EnemyMovement : MonoBehaviour
             Game game = new();
             game.NewTurnPlayer();
         } else {
+            Terrain terrain = new();
+            EnemyMovement enemyMovement = new();
+            AnimaEnemy animaEnemy = new();
+            Enemy enemy = new();
+            
             foreach (Vector3Int pos in enemiesToMove) {
                 MoveEnemyTowardsPos(pos, player.Pos, enemyMovement, animaEnemy, enemy, obstacle, terrain);
             }
