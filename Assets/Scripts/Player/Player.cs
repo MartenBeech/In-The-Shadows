@@ -12,11 +12,7 @@ public class Player : MonoBehaviour
         get { return pos; }
         set { pos = value; }
     }
-    static int scent = 5;
-    public int Scent {
-        get { return scent; }
-        set { scent = value; }
-    }
+    
     public void CreatePlayer(Vector3Int _pos) {
         GameObject prefab = Resources.Load<GameObject>("Assets/Player");
         GameObject parent = GameObject.Find("Players");

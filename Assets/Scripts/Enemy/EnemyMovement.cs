@@ -16,11 +16,12 @@ public class EnemyMovement : MonoBehaviour
         Obstacle obstacle = new();
         Dungeon dungeon = new();
         Player player = new();
+        PlayerStats playerStats = new();
         EnemyMovement enemyMovement = new();
         List<Vector3Int> enemiesToMove = new();
 
-        for (int x = player.Pos.x - player.Scent; x <= player.Pos.x + player.Scent; x++) {
-            for (int y = player.Pos.y - player.Scent; y <= player.Pos.y + player.Scent; y++) {
+        for (int x = player.Pos.x - playerStats.Scent; x <= player.Pos.x + playerStats.Scent; x++) {
+            for (int y = player.Pos.y - playerStats.Scent; y <= player.Pos.y + playerStats.Scent; y++) {
                 if (dungeon.IsInsideDungeon(new Vector3Int(x, y))) {
                     if (obstacle.GetObstacle(new Vector3Int(x, y)) == Obstacle.Type.Enemy) {
                         enemiesToMove.Add(new Vector3Int(x, y));

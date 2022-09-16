@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     public enum Type {
         Normal, Elite, Boss
     }
+   
     public void CreateEnemies(int size) {
         Terrain terrain = new();
         List<Vector3Int> paths = terrain.GetAllPathTiles(size);
@@ -23,11 +24,14 @@ public class Enemy : MonoBehaviour
     public void CreateEnemy(Type type, Vector3Int pos) {
         GameObject prefab = Resources.Load<GameObject>("Assets/Enemy");
         GameObject parent = GameObject.Find("Enemies");
-        GameObject player = Instantiate(prefab, new Vector3(pos.x * Tile.TILE_SIZE, pos.y * Tile.TILE_SIZE, -1), parent.transform.rotation, parent.transform);
-        player.name = GetName(pos);
+        GameObject enemy = Instantiate(prefab, new Vector3(pos.x * Tile.TILE_SIZE, pos.y * Tile.TILE_SIZE, -1), parent.transform.rotation, parent.transform);
+        enemy.name = GetName(pos);
 
         Obstacle obstacle = new();
         obstacle.CreateEnemy(pos);
+
+        EnemyUI enemyUI = new();
+        enemyUI.UpdateText(enemy);
     }
 
     public string GetName(Vector3Int pos) {
