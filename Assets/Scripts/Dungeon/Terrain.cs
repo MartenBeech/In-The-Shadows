@@ -149,23 +149,57 @@ public class Terrain : MonoBehaviour
         Dungeon dungeon = new();
         Tile tile = new();
         Scout scout = new();
+        Rng rng = new();
 
         for (int x = pos.x - range; x <= pos.x + range; x++) {
             for (int y = pos.y - range; y <= pos.y + range; y++) {
-                PlaceTerrain(new Vector3Int(x, y), dungeon, tile, scout);
+                if (dungeon.IsInsideDungeon(new Vector3Int(x, y))) {
+                    PlaceTerrain(new Vector3Int(x, y), dungeon, tile, scout, types[x, y], rng);
+                }
             }
         }
     }
 
-    public void PlaceTerrain(Vector3Int pos, Dungeon dungeon, Tile tile, Scout scout) {
+    public void PlaceTerrain(Vector3Int pos, Dungeon dungeon, Tile tile, Scout scout, Type type, Rng rng) {
         if (dungeon.IsInsideDungeon(pos)) {
             GameObject gameObject = GameObject.Find(tile.GetName(pos.x, pos.y));
-            gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{types[pos.x, pos.y]}");
+            switch(type) {
+                case Type.Path:
+                    PlacePath(gameObject, rng);
+                    break;
+                case Type.Wall:
+                    PlaceWall(gameObject);
+                    break;
+                case Type.Start:
+                    PlaceStart(gameObject);
+                    break;
+                case Type.End:
+                    PlaceEnd(gameObject);
+                    break;
+            }
+            
             if (scout.GetVision(pos)) {
                 gameObject.GetComponent<Image>().color = Color.HSVToRGB(0 / 360f, 0, 1f); //White
             } else {
                 gameObject.GetComponent<Image>().color = Color.HSVToRGB(0 / 360f, 0, 0.75f); //Light gray
             }
         }
+    }
+
+    private void PlacePath(GameObject gameObject, Rng rng) {
+        int rnd = rng.Range(0, 16);
+        gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/Paths/Path{rnd}");
+    }
+
+    private void PlaceWall(GameObject gameObject) {
+        gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/Walls/Wall");
+    }
+
+    private void PlaceStart(GameObject gameObject) {
+        gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/Stairs/Start");
+    }
+
+    private void PlaceEnd(GameObject gameObject) {
+        gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/Stairs/End");
     }
 }

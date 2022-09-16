@@ -51,6 +51,4 @@ public class PlayerMovement : MonoBehaviour
         Player player = new();
         player.Pos = to;
     }
-
-    
 }

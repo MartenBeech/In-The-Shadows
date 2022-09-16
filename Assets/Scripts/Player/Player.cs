@@ -33,6 +33,4 @@ public class Player : MonoBehaviour
         Cam cam = new();
         cam.SetPosition(new Vector3(_pos.x * Tile.TILE_SIZE, _pos.y * Tile.TILE_SIZE));
     }
-
-    
 }

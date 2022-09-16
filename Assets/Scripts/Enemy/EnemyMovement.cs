@@ -16,6 +16,7 @@ public class EnemyMovement : MonoBehaviour
         Obstacle obstacle = new();
         Dungeon dungeon = new();
         Player player = new();
+        EnemyMovement enemyMovement = new();
         List<Vector3Int> enemiesToMove = new();
 
         for (int x = player.Pos.x - player.Scent; x <= player.Pos.x + player.Scent; x++) {
@@ -27,19 +28,20 @@ public class EnemyMovement : MonoBehaviour
                 }
             }
         }
-        
-        if (enemiesToMove.Count == 0) {
-            Game game = new();
-            game.NewTurnPlayer();
-        } else {
+
+        if (enemiesToMove.Count > 0) {
             Terrain terrain = new();
-            EnemyMovement enemyMovement = new();
             AnimaEnemy animaEnemy = new();
             Enemy enemy = new();
-            
+
             foreach (Vector3Int pos in enemiesToMove) {
                 MoveEnemyTowardsPos(pos, player.Pos, enemyMovement, animaEnemy, enemy, obstacle, terrain);
             }
+        }
+
+        if (enemyMovement.EnemiesMoving == 0) {
+            Game game = new();
+            game.NewTurnPlayer();
         }
     }
     public void MoveEnemyTowardsPos(Vector3Int from, Vector3Int to, EnemyMovement enemyMovement, AnimaEnemy animaEnemy, Enemy enemy, Obstacle obstacle, Terrain terrain) {
