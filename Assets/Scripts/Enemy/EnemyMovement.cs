@@ -79,6 +79,7 @@ public class EnemyMovement : MonoBehaviour
             animaEnemy.MoveEnemy(gameObject, from, newPos);
             gameObject.name = enemy.GetName(newPos);
             obstacle.MoveObstacle(from, newPos);
+            gameObject.GetComponent<EnemyStats>().Pos = newPos;
 
             enemyMovement.EnemiesMoving++;
         }

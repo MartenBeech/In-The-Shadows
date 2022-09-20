@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour
         GameObject parent = GameObject.Find("Enemies");
         GameObject enemy = Instantiate(prefab, new Vector3(pos.x * Tile.TILE_SIZE, pos.y * Tile.TILE_SIZE, -1), parent.transform.rotation, parent.transform);
         enemy.name = GetName(pos);
+        enemy.GetComponent<EnemyStats>().Pos = pos;
 
         Obstacle obstacle = new();
         obstacle.CreateEnemy(pos);
@@ -36,5 +37,16 @@ public class Enemy : MonoBehaviour
 
     public string GetName(Vector3Int pos) {
         return $"Enemy{pos.x}-{pos.y}";
+    }
+
+    public void EnemyClicked(GameObject gameObject) {
+        Player player = new();
+        Distance distance = new();
+        Game game = new();
+        if (distance.GetDistanceTiles(player.Pos, gameObject.GetComponent<EnemyStats>().Pos) <= 1 &&
+            game.Turn == Game.Alignment.Player) {
+            PlayerCombat playerAttack = new();
+            playerAttack.AttackEnemy(gameObject);
+        }
     }
 }

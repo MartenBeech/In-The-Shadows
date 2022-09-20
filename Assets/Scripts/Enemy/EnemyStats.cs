@@ -24,9 +24,21 @@ public class EnemyStats : MonoBehaviour
         set { health = value; }
     }
 
+    int healthMax;
+    public int HealthMax {
+        get { return healthMax; }
+        set { healthMax = value; }
+    }
+
     int speed;
     public int Speed {
         get { return speed; }
         set { speed = value; }
+    }
+
+    Vector3Int pos;
+    public Vector3Int Pos {
+        get { return pos; }
+        set { pos = value; }
     }
 }

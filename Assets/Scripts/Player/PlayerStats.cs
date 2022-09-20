@@ -24,6 +24,12 @@ public class PlayerStats : MonoBehaviour
         set { health = value; }
     }
 
+    int healthMax;
+    public int HealthMax {
+        get { return healthMax; }
+        set { healthMax = value; }
+    }
+
     static int speed;
     public int Speed {
         get { return speed; }

@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 2878294774653545653}
   - component: {fileID: 7984449924988844642}
   - component: {fileID: 4880240880367377262}
+  - component: {fileID: 6765561578745349508}
   m_Layer: 5
   m_Name: Enemy
   m_TagString: Untagged
@@ -223,7 +224,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3301251815506548041}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6765561578745349508}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: EnemyClicked
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1494830431398529635}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &7984449924988844642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,6 +262,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b26586f7e40155c498c65425529059bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6765561578745349508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494830431398529635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf3a7a17315838f438bec70d913aee82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1901954561705342094
